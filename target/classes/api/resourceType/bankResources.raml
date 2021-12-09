@@ -1,0 +1,35 @@
+#%RAML 1.0 Library
+
+traits:
+  errorResp: !include ../traits/errorTraits.raml
+
+securitySchemes:
+  customSecurityScheme: !include ../securitySchemes/customSecurityScheme.raml
+
+resourceTypes:
+  bankCollection:
+    is: [errorResp]   
+    securedBy:
+      - customSecurityScheme
+        
+    get:
+      description: This is used to fetch <<resourcePathName>>
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                <<getResponse>>
+    post:
+      description: This is used create <<resourcePathName>>
+      body:
+        application/json:
+          example: |
+            <<postBody>>
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                <<postResponse>>
+          
