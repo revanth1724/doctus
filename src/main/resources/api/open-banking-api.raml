@@ -1,0 +1,41 @@
+#%RAML 1.0
+title: Open Banking RESTFul API
+description: This is Open API to fetch and create banking assets
+mediaType: 
+  - application/json
+  - application/xml
+protocols: [HTTP, HTTPS]
+version: v1
+
+uses:
+  bankResource: resourceType/bankResources.raml
+
+/accounts:
+  type:
+    bankResource.bankCollection:
+      getResponse: !include examples/accounts.json
+      postBody: !include examples/accounts.json
+      postResponse: !include examples/accountCreateResponse.json
+  get:
+    queryParameters:
+      accountType:
+        type: string
+        required: true
+        enum:
+          - Saving
+          - Credit
+        example: Credit
+                                                                
+/customers:
+  type:
+    bankResource.bankCollection:
+      getResponse: !include examples/customer.json
+      postBody: !include examples/customer.json
+      postResponse: !include examples/customerCreateResponse.json
+  get:
+    queryParameters:
+      city:
+        type: string
+        required: true
+        example: Mumbai
+     
